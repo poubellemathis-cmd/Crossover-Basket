@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+<title>CROSSOVER — Carrière de basketteur</title>
+<meta name="description" content="Écris ta légende du basket : entraînements, blessures, contrats, argent et choix décisifs en match." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body { -webkit-font-smoothing: antialiased; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+.flex { display: flex; }
+.grid { display: grid; }
+.flex-col { flex-direction: column; }
+.flex-1 { flex: 1 1 0%; }
+.items-center { align-items: center; }
+.items-start { align-items: flex-start; }
+.justify-between { justify-content: space-between; }
+.justify-center { justify-content: center; }
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.gap-1 { gap: .25rem; }
+.gap-2 { gap: .5rem; }
+.gap-3 { gap: .75rem; }
+.gap-x-4 { column-gap: 1rem; }
+.gap-y-1 { row-gap: .25rem; }
+
+.space-y-1 > * + * { margin-top: .25rem; }
+.space-y-2 > * + * { margin-top: .5rem; }
+.space-y-3 > * + * { margin-top: .75rem; }
+
+.mb-1 { margin-bottom: .25rem; }
+.mb-2 { margin-bottom: .5rem; }
+.mb-3 { margin-bottom: .75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mt-1 { margin-top: .25rem; }
+.mt-2 { margin-top: .5rem; }
+.mt-3 { margin-top: .75rem; }
+.mt-10 { margin-top: 2.5rem; }
+.pt-2 { padding-top: .5rem; }
+
+.p-3 { padding: .75rem; }
+.p-4 { padding: 1rem; }
+.px-2 { padding-left: .5rem; padding-right: .5rem; }
+.px-3 { padding-left: .75rem; padding-right: .75rem; }
+.px-4 { padding-left: 1rem; padding-right: 1rem; }
+.px-8 { padding-left: 2rem; padding-right: 2rem; }
+.py-1 { padding-top: .25rem; padding-bottom: .25rem; }
+.py-2 { padding-top: .5rem; padding-bottom: .5rem; }
+.py-3 { padding-top: .75rem; padding-bottom: .75rem; }
+.py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+
+.rounded { border-radius: .25rem; }
+.rounded-lg { border-radius: .5rem; }
+.rounded-xl { border-radius: .75rem; }
+.rounded-2xl { border-radius: 1rem; }
+.rounded-full { border-radius: 9999px; }
+
+.border { border-width: 1px; border-style: solid; border-color: rgba(255,255,255,.15); }
+.border-t { border-top-width: 1px; border-top-style: solid; border-color: rgba(255,255,255,.1); }
+.border-white\/10 { border-color: rgba(255,255,255,.1); }
+.border-white\/15 { border-color: rgba(255,255,255,.15); }
+
+.bg-black\/20 { background-color: rgba(0,0,0,.2); }
+.bg-black\/25 { background-color: rgba(0,0,0,.25); }
+.bg-black\/30 { background-color: rgba(0,0,0,.3); }
+.bg-black\/40 { background-color: rgba(0,0,0,.4); }
+
+.w-6 { width: 1.5rem; }
+.w-7 { width: 1.75rem; }
+.w-full { width: 100%; }
+.h-2 { height: .5rem; }
+.h-7 { height: 1.75rem; }
+.h-full { height: 100%; }
+.max-w-md { max-width: 28rem; }
+.max-w-xs { max-width: 20rem; }
+.max-h-40 { max-height: 10rem; }
+.overflow-hidden { overflow: hidden; }
+.overflow-y-auto { overflow-y: auto; }
+
+.text-xs { font-size: .75rem; line-height: 1rem; }
+.text-sm { font-size: .875rem; line-height: 1.25rem; }
+.text-lg { font-size: 1.125rem; line-height: 1.5rem; }
+.text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+.text-2xl { font-size: 1.5rem; line-height: 2rem; }
+.text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
+.text-5xl { font-size: 3rem; line-height: 1; }
+.font-bold { font-weight: 700; }
+.uppercase { text-transform: uppercase; }
+.tracking-widest { letter-spacing: .1em; }
+
+.opacity-50 { opacity: .5; }
+.opacity-60 { opacity: .6; }
+.opacity-70 { opacity: .7; }
+.opacity-80 { opacity: .8; }
+.opacity-85 { opacity: .85; }
+
+.shadow-lg { box-shadow: 0 10px 15px -3px rgba(0,0,0,.4), 0 4px 6px -4px rgba(0,0,0,.4); }
+.outline-none { outline: none; }
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button { opacity: 1; }
+
+button:disabled, .disabled\:opacity-30:disabled { opacity: .3; cursor: not-allowed; }
+
+@media (max-width: 420px) {
+  .text-5xl { font-size: 2.4rem; }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Space+Mono:wght@700&display=swap');
+.disp { font-family: 'Oswald', 'Arial Narrow', sans-serif; letter-spacing: 0.02em; }
+.scoreboard { font-family: 'Space Mono', 'Courier New', monospace; font-variant-numeric: tabular-nums; }
+body { font-family: 'Inter', system-ui, sans-serif; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script>
+(() => {
+  var __defProp = Object.defineProperty;
+  var __defProps = Object.defineProperties;
+  var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
+  var __getOwnPropSymbols = Object.getOwnPropertySymbols;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __propIsEnum = Object.prototype.propertyIsEnumerable;
+  var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
+  var __spreadValues = (a, b) => {
+    for (var prop in b || (b = {}))
+      if (__hasOwnProp.call(b, prop))
+        __defNormalProp(a, prop, b[prop]);
+    if (__getOwnPropSymbols)
+      for (var prop of __getOwnPropSymbols(b)) {
+        if (__propIsEnum.call(b, prop))
+          __defNormalProp(a, prop, b[prop]);
+      }
+    return a;
+  };
+  var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
+  const { useState, useEffect, useRef } = React;
+  function Icon({ children, size = 14 }) {
+    return /* @__PURE__ */ React.createElement("span", { style: { fontSize: size, lineHeight: 1, display: "inline-block" } }, children);
+  }
+  const Trophy = (props) => /* @__PURE__ */ React.createElement(Icon, __spreadValues({}, props), "\u{1F3C6}");
+  const Wallet = (props) => /* @__PURE__ */ React.createElement(Icon, __spreadValues({}, props), "\u{1F4B0}");
+  const HeartPulse = (props) => /* @__PURE__ */ React.createElement(Icon, __spreadValues({}, props), "\u2764\uFE0F");
+  const Battery = (props) => /* @__PURE__ */ React.createElement(Icon, __spreadValues({}, props), "\u{1F50B}");
+  const Star = (props) => /* @__PURE__ */ React.createElement(Icon, __spreadValues({}, props), "\u2B50");
+  const Dumbbell = (props) => /* @__PURE__ */ React.createElement(Icon, __spreadValues({}, props), "\u{1F3CB}\uFE0F");
+  const Home = (props) => /* @__PURE__ */ React.createElement(Icon, __spreadValues({}, props), "\u{1F3E0}");
+  const Users = (props) => /* @__PURE__ */ React.createElement(Icon, __spreadValues({}, props), "\u{1F465}");
+  const ChevronRight = (props) => /* @__PURE__ */ React.createElement(Icon, __spreadValues({}, props), "\u25B6");
+  const RotateCcw = (props) => /* @__PURE__ */ React.createElement(Icon, __spreadValues({}, props), "\u21BA");
+  const POSITIONS = [
+    { key: "Meneur", base: { tir: 48, def: 44, phy: 42, passe: 58, mental: 52 } },
+    { key: "Arri\xE8re", base: { tir: 56, def: 46, phy: 46, passe: 46, mental: 48 } },
+    { key: "Ailier", base: { tir: 50, def: 50, phy: 50, passe: 48, mental: 50 } },
+    { key: "Ailier fort", base: { tir: 44, def: 54, phy: 56, passe: 42, mental: 48 } },
+    { key: "Pivot", base: { tir: 38, def: 56, phy: 60, passe: 38, mental: 46 } }
+  ];
+  const ATTR_LABELS = { tir: "Tir", def: "D\xE9fense", phy: "Physique", passe: "Passe", mental: "Mental" };
+  const TIERS = [
+    { key: "n2", label: "Nationale 2", repReq: 0, salary: [15e3, 25e3] },
+    { key: "n1", label: "Nationale 1", repReq: 18, salary: [3e4, 6e4] },
+    { key: "pro", label: "Ligue Pro", repReq: 38, salary: [8e4, 22e4] },
+    { key: "elite", label: "Ligue \xC9lite", repReq: 62, salary: [28e4, 95e4] },
+    { key: "legend", label: "Ligue Majeure Intl.", repReq: 85, salary: [12e5, 45e5] }
+  ];
+  const TEAM_NAMES = {
+    n2: ["Loups de Lyon", "Faucons d'Amiens", "\xC9toiles de Rennes", "Com\xE8tes d'Angers"],
+    n1: ["Dragons de Nantes", "Panth\xE8res de Nice", "Aigles de Toulouse", "Vagues de Brest"],
+    pro: ["Flammes de Paris", "Requins de Marseille", "Titans de Bordeaux", "\xC9clairs de Strasbourg"],
+    elite: ["Guerriers de Lille", "Spartiates de Lyon", "Rois de Paris", "Tornades de Montpellier"],
+    legend: ["Titans de Milan", "Gladiateurs de Madrid", "Vikings d'Istanbul", "Samoura\xEFs de Tokyo"]
+  };
+  const ALL_TEAMS = Object.values(TEAM_NAMES).flat();
+  const LIFESTYLES = {
+    modeste: { label: "Modeste", cost: 0, morale: 0, rep: 0, desc: "Tu vis simplement et mets de c\xF4t\xE9." },
+    confortable: { label: "Confortable", costPct: 0.08, morale: 5, rep: 1, desc: "Un train de vie raisonnable, bon pour le moral." },
+    luxe: { label: "Luxe", costPct: 0.2, morale: 10, rep: 2, desc: "Voitures, sorties, image publique soign\xE9e \u2014 mais \xE7a co\xFBte cher." }
+  };
+  const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+  const chance = (p) => Math.random() < p;
+  const clamp = (v, min, max) => Math.max(min, Math.min(max, v));
+  const pick = (arr) => arr[rand(0, arr.length - 1)];
+  const eur = (n) => n.toLocaleString("fr-FR") + " \u20AC";
+  const overall = (a) => Math.round((a.tir + a.def + a.phy + a.passe + a.mental) / 5);
+  function eligibleTiers(reputation) {
+    const el = TIERS.filter((t) => reputation >= t.repReq);
+    return el.length ? el : [TIERS[0]];
+  }
+  function rollOffers(reputation, freeAgentStreak = 0) {
+    const noOfferChance = clamp(0.3 - reputation / 60 + freeAgentStreak * 0.12, 0, 0.65);
+    if (chance(noOfferChance)) return [];
+    const el = eligibleTiers(reputation);
+    const top = el[el.length - 1];
+    const offers = [];
+    const mkOffer = (tier) => {
+      const [lo, hi] = tier.salary;
+      const frac = clamp((reputation - tier.repReq) / 40, 0, 1);
+      const salary = Math.round(rand(lo, lo + (hi - lo) * (0.3 + frac * 0.7)));
+      return {
+        team: pick(TEAM_NAMES[tier.key]),
+        tierKey: tier.key,
+        tierLabel: tier.label,
+        salary,
+        ambition: rand(1, 5),
+        minutes: rand(35, 90)
+      };
+    };
+    offers.push(mkOffer(top));
+    offers.push(mkOffer(top));
+    const belowIdx = TIERS.indexOf(top) - 1;
+    if (belowIdx >= 0) offers.push(mkOffer(TIERS[belowIdx]));
+    const aboveIdx = TIERS.indexOf(top) + 1;
+    if (aboveIdx < TIERS.length && reputation > top.repReq + 12 && chance(0.25)) {
+      offers.push(mkOffer(TIERS[aboveIdx]));
+    }
+    const seen = /* @__PURE__ */ new Set();
+    return offers.filter((o) => seen.has(o.team) ? false : (seen.add(o.team), true)).slice(0, 3);
+  }
+  function buildScenarios(player, team) {
+    const opp = pick(ALL_TEAMS.filter((t) => t !== (team == null ? void 0 : team.name)));
+    const diff = rand(1, 4);
+    return [
+      {
+        id: "clutch",
+        title: "Derni\xE8re possession",
+        text: `Contre ${opp}, ton \xE9quipe est men\xE9e de ${diff} point${diff > 1 ? "s" : ""}. Il reste 4 secondes et le ballon arrive dans tes mains.`,
+        choices: [
+          {
+            label: "Tenter le tir \xE0 3 points",
+            resolve: (p) => {
+              const c = clamp(0.3 + (p.attrs.tir - 50) / 120 + (p.morale - 50) / 300, 0.1, 0.75);
+              const ok = chance(c);
+              return ok ? { win: true, moraleD: 8, repD: 4, energyD: -8, text: "Le ballon claque dans le filet \xE0 la sir\xE8ne. La salle explose." } : { win: false, moraleD: -6, repD: -3, energyD: -8, text: "L'arc-en-ciel retombe sur le cercle. D\xE9faite am\xE8re." };
+            }
+          },
+          {
+            label: "Foncer vers le panier",
+            resolve: (p) => {
+              const c = clamp(0.35 + (p.attrs.phy - 50) / 130, 0.15, 0.75);
+              const ok = chance(c);
+              return ok ? { win: true, moraleD: 6, repD: 3, energyD: -10, text: "Tu forces le passage et marques au buzzer, contact et tout." } : { win: false, moraleD: -4, repD: -2, energyD: -10, text: "La d\xE9fense se referme, ballon perdu dans la raquette." };
+            }
+          },
+          {
+            label: "Servir un co\xE9quipier d\xE9marqu\xE9",
+            resolve: (p) => {
+              const c = clamp(0.45 + (p.attrs.passe - 50) / 140, 0.2, 0.8);
+              const ok = chance(c);
+              return ok ? { win: true, moraleD: 4, repD: 2, energyD: -5, text: "Passe parfaite, ton co\xE9quipier ne tremble pas. Victoire collective." } : { win: false, moraleD: -2, repD: -1, energyD: -5, text: "La passe est lue, interception, le match est perdu." };
+            }
+          }
+        ]
+      },
+      {
+        id: "trashtalk",
+        title: "Embrouille sur le terrain",
+        text: `Un adversaire de ${opp} te provoque apr\xE8s un contact et cherche \xE0 te d\xE9stabiliser devant l'arbitre.`,
+        choices: [
+          {
+            label: "R\xE9pondre par le jeu",
+            resolve: (p) => {
+              const ok = chance(clamp(0.5 + (p.attrs.mental - 50) / 150, 0.2, 0.85));
+              return ok ? { moraleD: 6, repD: 3, energyD: -4, teamMod: 6, text: "Tu hausses ton niveau de jeu, le public bascule de ton c\xF4t\xE9." } : { moraleD: -3, repD: -1, energyD: -6, teamMod: -4, text: "Tu perds ta concentration \xE0 un mauvais moment." };
+            }
+          },
+          {
+            label: "Ignorer et rester concentr\xE9",
+            resolve: (p) => ({ moraleD: 2, repD: 0, energyD: -2, teamMod: 2, text: "Tu gardes ton calme, ton coach approuve du regard." })
+          },
+          {
+            label: "R\xE9pliquer verbalement",
+            resolve: (p) => {
+              const ok = chance(0.4);
+              return ok ? { moraleD: 7, repD: -2, energyD: -3, teamMod: 5, text: "L'\xE9change enflamme la salle, tu joues avec rage \u2014 efficacement." } : { moraleD: -5, repD: -6, energyD: -3, teamMod: -8, text: "Faute technique siffl\xE9e. Ton coach n'est pas content." };
+            }
+          }
+        ]
+      },
+      {
+        id: "bench",
+        title: "Laiss\xE9 sur le banc",
+        text: `Le coach te laisse sur le banc en fin de match serr\xE9 contre ${opp}, alors que tu penses avoir ta place sur le terrain.`,
+        choices: [
+          {
+            label: "Rester positif, pousser l'\xE9quipe",
+            resolve: (p) => ({ moraleD: 3, repD: 1, energyD: 2, teamMod: 3, text: "Tes encouragements depuis le banc soudent le groupe." })
+          },
+          {
+            label: "Demander des explications au coach",
+            resolve: (p) => {
+              const ok = chance(clamp(0.4 + (p.attrs.mental - 50) / 200, 0.2, 0.7));
+              return ok ? { moraleD: 4, repD: 1, energyD: -2, teamMod: 1, text: "La discussion est franche et clarifie ton r\xF4le." } : { moraleD: -5, repD: -2, energyD: -2, teamMod: -2, text: "Le ton monte, la relation avec le coach se tend." };
+            }
+          },
+          {
+            label: "Ravaler ta frustration",
+            resolve: (p) => ({ moraleD: -4, repD: 0, energyD: 0, teamMod: 0, text: "Tu encaisses en silence, mais \xE7a p\xE8se un peu plus chaque fois." })
+          }
+        ]
+      },
+      {
+        id: "minorinjury",
+        title: "Petite douleur en plein match",
+        text: `Une g\xEAne \xE0 la cheville appara\xEEt apr\xE8s une r\xE9ception maladroite face \xE0 ${opp}.`,
+        choices: [
+          {
+            label: "Continuer \xE0 jouer",
+            resolve: (p) => {
+              const risk = clamp(0.25 + (60 - p.attrs.phy) / 200, 0.1, 0.55);
+              const bad = chance(risk);
+              return bad ? { moraleD: -6, repD: 0, energyD: -10, teamMod: 4, injury: "mineure", text: "Tu forces sur la douleur \u2014 mauvaise id\xE9e, la cheville gonfle apr\xE8s le match." } : { moraleD: 5, repD: 2, energyD: -8, teamMod: 6, text: "Tu joues \xE0 travers la douleur sans cons\xE9quence, l'\xE9quipe appr\xE9cie ton sacrifice." };
+            }
+          },
+          {
+            label: "Sortir imm\xE9diatement",
+            resolve: (p) => ({ moraleD: -1, repD: -1, energyD: 4, teamMod: -3, text: "Tu pr\xE9serves ton corps, sagesse qui ne fait pas l'unanimit\xE9 en tribune." })
+          }
+        ]
+      },
+      {
+        id: "interview",
+        title: "Interview d'apr\xE8s-match",
+        text: `Micro tendu \xE0 la sortie du vestiaire apr\xE8s la rencontre face \xE0 ${opp}.`,
+        choices: [
+          {
+            label: "Rester humble",
+            resolve: () => ({ moraleD: 2, repD: 2, energyD: 0, teamMod: 0, text: "Ta sobri\xE9t\xE9 pla\xEEt aux observateurs du championnat." })
+          },
+          {
+            label: "Te montrer confiant",
+            resolve: (p) => {
+              const ok = chance(0.5);
+              return ok ? { moraleD: 6, repD: 5, energyD: 0, teamMod: 0, text: "Ta confiance fait la une, ta cote grimpe." } : { moraleD: -3, repD: -2, energyD: 0, teamMod: 0, text: "Tes propos sont jug\xE9s arrogants par la presse." };
+            }
+          },
+          {
+            label: "Critiquer l'arbitrage",
+            resolve: (p) => ({ moraleD: 3, repD: -4, energyD: 0, teamMod: 0, money: -1500, text: "Les fans adorent, la ligue moins : une amende tombe." })
+          }
+        ]
+      }
+    ];
+  }
+  function App() {
+    const [screen, setScreen] = useState("menu");
+    const [player, setPlayer] = useState(null);
+    const [log, setLog] = useState([]);
+    const [creation, setCreation] = useState({ name: "", position: "Meneur", points: {}, remaining: 15 });
+    const [offers, setOffers] = useState([]);
+    const [trainingChoice, setTrainingChoice] = useState({ intensity: "Mod\xE9r\xE9", focus: "tir" });
+    const [lifestyleChoice, setLifestyleChoice] = useState("modeste");
+    const [investAmount, setInvestAmount] = useState(0);
+    const [pendingInvestment, setPendingInvestment] = useState(0);
+    const [seasonQueue, setSeasonQueue] = useState([]);
+    const [seasonIdx, setSeasonIdx] = useState(0);
+    const [seasonStats, setSeasonStats] = useState({ wins: 0, losses: 0, perfSum: 0, games: 0 });
+    const [activeDecision, setActiveDecision] = useState(null);
+    const [resultText, setResultText] = useState(null);
+    const [seasonSummary, setSeasonSummary] = useState(null);
+    const [retireInfo, setRetireInfo] = useState(null);
+    const scenarioHistoryRef = useRef([]);
+    function pushLog(text) {
+      setLog((l) => [text, ...l].slice(0, 30));
+    }
+    function startCreation() {
+      setCreation({ name: "", position: "Meneur", points: { tir: 0, def: 0, phy: 0, passe: 0, mental: 0 }, remaining: 15 });
+      setScreen("creation");
+    }
+    function adjustPoint(attr, delta) {
+      setCreation((c) => {
+        const cur = c.points[attr];
+        const next = cur + delta;
+        if (next < 0 || next > 10) return c;
+        const remaining = c.remaining - delta;
+        if (remaining < 0 || remaining > 15) return c;
+        return __spreadProps(__spreadValues({}, c), { points: __spreadProps(__spreadValues({}, c.points), { [attr]: next }), remaining });
+      });
+    }
+    function confirmCreation() {
+      const posBase = POSITIONS.find((p) => p.key === creation.position).base;
+      const attrs = {};
+      Object.keys(ATTR_LABELS).forEach((k) => attrs[k] = posBase[k] + creation.points[k]);
+      const newPlayer = {
+        name: creation.name.trim() || "Rookie",
+        position: creation.position,
+        age: 18,
+        attrs,
+        energy: 90,
+        morale: 60,
+        reputation: 12,
+        money: 2e3,
+        team: null,
+        freeAgentStreak: 0,
+        seasonsPlayed: 0,
+        awards: [],
+        injuryStatus: null,
+        trainingIntensityThisSeason: null
+      };
+      setPlayer(newPlayer);
+      setOffers(rollOffers(newPlayer.reputation));
+      pushLog(`${newPlayer.name} entame sa carri\xE8re en tant que ${newPlayer.position}.`);
+      setScreen("offers");
+    }
+    function chooseOffer(offer) {
+      setPlayer((p) => __spreadProps(__spreadValues({}, p), { team: offer, freeAgentStreak: 0 }));
+      pushLog(`Contrat sign\xE9 avec ${offer.team} (${offer.tierLabel}) pour ${eur(offer.salary)}.`);
+      setTrainingChoice({ intensity: "Mod\xE9r\xE9", focus: "tir" });
+      setLifestyleChoice("modeste");
+      setInvestAmount(0);
+      setScreen("hub");
+    }
+    function skipOffers() {
+      setPlayer((p) => __spreadProps(__spreadValues({}, p), { freeAgentStreak: p.freeAgentStreak + 1 }));
+      pushLog("Aucun contrat sign\xE9 cette saison \u2014 tu restes libre.");
+      setScreen("hub");
+    }
+    const INTENSITIES = {
+      L\u00E9ger: { cost: 10, gain: [1, 2], risk: 0.02 },
+      Mod\u00E9r\u00E9: { cost: 20, gain: [2, 4], risk: 0.05 },
+      Intense: { cost: 35, gain: [4, 7], risk: 0.12 }
+    };
+    function launchSeason() {
+      const queue = ["auto", "decision", "auto", "decision", "auto", "bigmatch"];
+      scenarioHistoryRef.current = [];
+      setSeasonQueue(queue);
+      setSeasonIdx(0);
+      setSeasonStats({ wins: 0, losses: 0, perfSum: 0, games: 0 });
+      setResultText(null);
+      setActiveDecision(null);
+      setScreen("season");
+      processNext(queue, 0, player);
+    }
+    function processNext(queue, idx, p) {
+      if (idx >= queue.length) {
+        finishSeason(p);
+        return;
+      }
+      const kind = queue[idx];
+      if (kind === "auto" || kind === "bigmatch") {
+        const result = simulateAutoMatch(p, kind === "bigmatch");
+        applyMatchResult(result, p, idx, queue);
+      } else if (kind === "decision") {
+        const pool = buildScenarios(p, p.team).filter((s) => !scenarioHistoryRef.current.includes(s.id));
+        const scenario = pick(pool.length ? pool : buildScenarios(p, p.team));
+        scenarioHistoryRef.current.push(scenario.id);
+        setActiveDecision(scenario);
+        setResultText(null);
+      }
+    }
+    function simulateAutoMatch(p, big) {
+      var _a, _b, _c, _d;
+      const opp = pick(ALL_TEAMS);
+      const ov = overall(p.attrs);
+      const minutesFactor = ((_b = (_a = p.team) == null ? void 0 : _a.minutes) != null ? _b : 60) / 100;
+      const teamPower = ov * minutesFactor * 0.8 + ((_d = (_c = p.team) == null ? void 0 : _c.ambition) != null ? _d : 3) * 6 + rand(-12, 12) + (big ? 5 : 0);
+      const oppPower = 42 + rand(-15, 15) + (big ? 10 : 0);
+      const win = teamPower > oppPower;
+      const perf = clamp(Math.round(ov * minutesFactor / 10 + rand(-2, 3)), 1, 10);
+      const repD = win ? rand(0, 2) + (perf >= 8 ? 1 : 0) + (big ? 2 : 0) : rand(-2, 0) - (big ? 1 : 0);
+      const moraleD = win ? rand(1, 3) : rand(-3, -1);
+      const label = big ? "Match d\xE9cisif de fin de saison" : "Rencontre de championnat";
+      const text = win ? `${label} contre ${opp} : victoire, tu tournes \xE0 ${perf}/10 sur la feuille de match.` : `${label} contre ${opp} : d\xE9faite, prestation \xE0 ${perf}/10.`;
+      return { win, perf, repD, moraleD, energyD: big ? -12 : -8, text, big };
+    }
+    function rollInjury(p, extraRisk) {
+      var _a;
+      const intensity = INTENSITIES[p.trainingIntensityThisSeason || "Mod\xE9r\xE9"];
+      const ageFactor = p.age >= 30 ? (p.age - 29) * 0.015 : 0;
+      const physFactor = clamp((55 - p.attrs.phy) / 400, 0, 0.1);
+      const base = 0.03 + ((_a = intensity == null ? void 0 : intensity.risk) != null ? _a : 0.05) * 0.3 + ageFactor + physFactor + (extraRisk || 0);
+      if (!chance(clamp(base, 0.01, 0.4))) return null;
+      const severe = chance(0.25 + ageFactor * 2);
+      return severe ? "grave" : "mineure";
+    }
+    function applyMatchResult(result, p, idx, queue) {
+      var _a;
+      let next = __spreadProps(__spreadValues({}, p), {
+        energy: clamp(p.energy + result.energyD, 0, 100),
+        morale: clamp(p.morale + result.moraleD, 0, 100),
+        reputation: clamp(p.reputation + result.repD, 0, 100)
+      });
+      let extraText = "";
+      const injury = rollInjury(next, 0);
+      if (injury) {
+        if (injury === "grave") {
+          const careerEnding = next.age >= 32 && chance(0.1 + (next.age - 32) * 0.015);
+          if (careerEnding) {
+            setPlayer(next);
+            endCareer(next, "Une blessure grave met un terme pr\xE9matur\xE9 \xE0 ta carri\xE8re.");
+            return;
+          }
+          next.injuryStatus = "grave";
+          next.reputation = clamp(next.reputation - 4, 0, 100);
+          next.morale = clamp(next.morale - 8, 0, 100);
+          const medicalCost = Math.round((((_a = next.team) == null ? void 0 : _a.salary) || 2e4) * 0.08);
+          next.money = Math.max(0, next.money - medicalCost);
+          extraText = ` Grosse frayeur : blessure s\xE9rieuse, plusieurs matchs manqu\xE9s. Frais m\xE9dicaux : -${medicalCost.toLocaleString("fr-FR")} \u20AC.`;
+        } else {
+          next.injuryStatus = "mineure";
+          next.energy = clamp(next.energy - 5, 0, 100);
+          extraText = " Petit p\xE9pin physique \xE0 surveiller.";
+        }
+      }
+      setSeasonStats((s) => ({
+        wins: s.wins + (result.win ? 1 : 0),
+        losses: s.losses + (result.win ? 0 : 1),
+        perfSum: s.perfSum + result.perf,
+        games: s.games + 1
+      }));
+      setPlayer(next);
+      setResultText(result.text + extraText);
+      setSeasonIdx(idx + 1);
+      setActiveDecision(null);
+    }
+    function resolveDecision(choice) {
+      var _a, _b, _c, _d;
+      const effects = choice.resolve(player);
+      let next = __spreadProps(__spreadValues({}, player), {
+        energy: clamp(player.energy + (effects.energyD || 0), 0, 100),
+        morale: clamp(player.morale + (effects.moraleD || 0), 0, 100),
+        reputation: clamp(player.reputation + (effects.repD || 0), 0, 100),
+        money: player.money + (effects.money || 0)
+      });
+      let win;
+      let perf = clamp(5 + Math.round((overall(next.attrs) - 50) / 15), 1, 10);
+      if (typeof effects.win === "boolean") {
+        win = effects.win;
+      } else {
+        const teamMod = effects.teamMod || 0;
+        const teamPower = overall(next.attrs) * (((_b = (_a = next.team) == null ? void 0 : _a.minutes) != null ? _b : 60) / 100) * 0.8 + ((_d = (_c = next.team) == null ? void 0 : _c.ambition) != null ? _d : 3) * 6 + teamMod + rand(-10, 10);
+        const oppPower = 42 + rand(-15, 15);
+        win = teamPower > oppPower;
+      }
+      if (effects.injury === "mineure") next.injuryStatus = "mineure";
+      setSeasonStats((s) => ({
+        wins: s.wins + (win ? 1 : 0),
+        losses: s.losses + (win ? 0 : 1),
+        perfSum: s.perfSum + perf,
+        games: s.games + 1
+      }));
+      setPlayer(next);
+      setResultText(effects.text);
+      setActiveDecision(null);
+      setSeasonIdx((i) => i + 1);
+    }
+    function continueSeason() {
+      processNext(seasonQueue, seasonIdx, player);
+    }
+    function finishSeason(p) {
+      var _a;
+      const salary = p.team ? p.team.salary : 0;
+      const agentCut = Math.round(salary * 0.15);
+      const style = LIFESTYLES[lifestyleChoice];
+      let money = p.money + salary - agentCut;
+      let lifestyleCost = 0;
+      if (style.costPct) {
+        lifestyleCost = Math.round(salary * style.costPct);
+        if (money - lifestyleCost < 0) lifestyleCost = 0;
+        else money -= lifestyleCost;
+      }
+      let investReturn = 0;
+      if (pendingInvestment > 0) {
+        const volatility = clamp((60 - p.attrs.mental) / 200, 0, 0.15);
+        const pct = rand(-40, 35) / 100 + (chance(0.5) ? -volatility : volatility);
+        investReturn = Math.round(pendingInvestment * pct);
+        money += pendingInvestment + investReturn;
+      }
+      let repGain = style.rep || 0;
+      let moraleGain = style.morale || 0;
+      let awardsGained = [];
+      const winRate = seasonStats.games ? seasonStats.wins / seasonStats.games : 0;
+      if (p.reputation + repGain >= 55 && winRate >= 0.5 && chance(0.18)) awardsGained.push("S\xE9lection All-Star");
+      if (p.reputation + repGain >= 80 && winRate >= 0.65 && chance(0.1)) awardsGained.push("MVP de la ligue");
+      if (winRate >= 0.7 && chance(0.15)) awardsGained.push("Titre de champion");
+      const skillCeiling = clamp(overall(p.attrs) * 1.5, 0, 100);
+      let next = __spreadProps(__spreadValues({}, p), {
+        money,
+        reputation: clamp(Math.min(p.reputation + repGain + awardsGained.length, skillCeiling), 0, 100),
+        morale: clamp(p.morale + moraleGain, 0, 100),
+        energy: clamp(p.energy + 15, 0, 100),
+        age: p.age + 1,
+        seasonsPlayed: p.seasonsPlayed + 1,
+        awards: [...p.awards, ...awardsGained],
+        injuryStatus: null
+      });
+      if (next.age >= 30) {
+        const decayed = __spreadValues({}, next.attrs);
+        Object.keys(decayed).forEach((k) => {
+          if (chance(0.6)) decayed[k] = Math.max(20, decayed[k] - rand(1, 3));
+        });
+        next.attrs = decayed;
+      }
+      setPendingInvestment(0);
+      pushLog(`Bilan saison ${next.seasonsPlayed} (${next.age - 1} ans) : ${seasonStats.wins}V-${seasonStats.losses}D avec ${((_a = p.team) == null ? void 0 : _a.team) || "aucune \xE9quipe"}.`);
+      if (awardsGained.length) pushLog(`Distinctions : ${awardsGained.join(", ")}.`);
+      setSeasonSummary({
+        wins: seasonStats.wins,
+        losses: seasonStats.losses,
+        avgPerf: seasonStats.games ? (seasonStats.perfSum / seasonStats.games).toFixed(1) : "-",
+        salary,
+        agentCut,
+        lifestyleCost,
+        investReturn,
+        awardsGained,
+        team: p.team
+      });
+      setPlayer(next);
+      if (next.age >= 40) {
+        endCareer(next, "Le corps a parl\xE9 : place \xE0 une retraite m\xE9rit\xE9e apr\xE8s une longue carri\xE8re.");
+        return;
+      }
+      setScreen("seasonEnd");
+    }
+    function nextSeasonAfterSummary() {
+      let p = player;
+      if (p.team) {
+        const winRate = seasonSummary.wins + seasonSummary.losses ? seasonSummary.wins / (seasonSummary.wins + seasonSummary.losses) : 0;
+        const renewChance = clamp(0.25 + winRate * 0.5 + (p.morale - 50) / 300, 0.08, 0.8);
+        if (chance(renewChance)) {
+          pushLog(`${p.team.team} te propose une prolongation.`);
+          setTrainingChoice({ intensity: "Mod\xE9r\xE9", focus: "tir" });
+          setLifestyleChoice("modeste");
+          setInvestAmount(0);
+          setScreen("hub");
+          return;
+        } else {
+          pushLog(`${p.team.team} ne prolonge pas ton contrat. Tu deviens libre.`);
+          setPlayer((pl) => __spreadProps(__spreadValues({}, pl), { team: null, freeAgentStreak: pl.freeAgentStreak + 1 }));
+          p = __spreadProps(__spreadValues({}, p), { team: null, freeAgentStreak: p.freeAgentStreak + 1 });
+        }
+      }
+      if (p.freeAgentStreak >= 2) {
+        endCareer(p, "Trop longtemps sans club : la carri\xE8re s'arr\xEAte faute d'opportunit\xE9s.");
+        return;
+      }
+      const newOffers = rollOffers(p.reputation, p.freeAgentStreak);
+      setOffers(newOffers);
+      if (!newOffers.length) {
+        const bumped = p.freeAgentStreak + 1;
+        setPlayer((pl) => __spreadProps(__spreadValues({}, pl), { freeAgentStreak: bumped }));
+        pushLog("Aucune offre re\xE7ue cette saison.");
+        if (bumped >= 2) {
+          endCareer(__spreadProps(__spreadValues({}, p), { freeAgentStreak: bumped }), "Trop longtemps sans club : la carri\xE8re s'arr\xEAte faute d'opportunit\xE9s.");
+          return;
+        }
+        setScreen("hub");
+      } else {
+        setScreen("offers");
+      }
+    }
+    function retireVoluntarily() {
+      endCareer(player, "Tu choisis de raccrocher les baskets au sommet \u2014 ou simplement \xE0 ton rythme.");
+    }
+    function endCareer(p, reason) {
+      setRetireInfo({ player: p, reason });
+      setScreen("retired");
+    }
+    function restart() {
+      setPlayer(null);
+      setLog([]);
+      setOffers([]);
+      setSeasonSummary(null);
+      setRetireInfo(null);
+      setScreen("menu");
+    }
+    const bg = "#12151C";
+    const wood = "#A56B35";
+    const orange = "#E8720C";
+    const gold = "#F2C14E";
+    const red = "#D64545";
+    const chalk = "#F5F1E8";
+    return /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        style: {
+          minHeight: "100vh",
+          background: `radial-gradient(circle at 50% -10%, #1c2230 0%, ${bg} 60%)`,
+          color: chalk,
+          fontFamily: "'Inter', system-ui, sans-serif"
+        },
+        className: "flex flex-col items-center px-4 py-6"
+      },
+      /* @__PURE__ */ React.createElement("style", null, `
+        @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Space+Mono:wght@700&display=swap');
+        .disp { font-family: 'Oswald', 'Arial Narrow', sans-serif; letter-spacing: 0.02em; }
+        .scoreboard { font-family: 'Space Mono', 'Courier New', monospace; font-variant-numeric: tabular-nums; }
+      `),
+      /* @__PURE__ */ React.createElement("div", { className: "w-full max-w-md" }, screen === "menu" && /* @__PURE__ */ React.createElement(MenuScreen, { onStart: startCreation, orange, gold }), screen === "creation" && /* @__PURE__ */ React.createElement(
+        CreationScreen,
+        {
+          creation,
+          setCreation,
+          adjustPoint,
+          onConfirm: confirmCreation,
+          orange,
+          wood
+        }
+      ), screen === "offers" && /* @__PURE__ */ React.createElement(OffersScreen, { offers, onChoose: chooseOffer, onSkip: skipOffers, orange, gold, wood }), screen === "hub" && /* @__PURE__ */ React.createElement(
+        HubScreen,
+        {
+          player,
+          log,
+          trainingChoice,
+          setTrainingChoice,
+          intensities: INTENSITIES,
+          lifestyleChoice,
+          setLifestyleChoice,
+          lifestyles: LIFESTYLES,
+          investAmount,
+          setInvestAmount,
+          onInvest: () => {
+            setPendingInvestment(investAmount);
+            setPlayer((p) => __spreadProps(__spreadValues({}, p), { money: p.money - investAmount }));
+            setInvestAmount(0);
+          },
+          pendingInvestment,
+          onApplyTraining: () => {
+            const conf = INTENSITIES[trainingChoice.intensity];
+            const gain = rand(conf.gain[0], conf.gain[1]);
+            setPlayer((p) => __spreadProps(__spreadValues({}, p), {
+              attrs: __spreadProps(__spreadValues({}, p.attrs), { [trainingChoice.focus]: clamp(p.attrs[trainingChoice.focus] + gain, 0, 99) }),
+              energy: clamp(p.energy - conf.cost, 0, 100),
+              trainingIntensityThisSeason: trainingChoice.intensity
+            }));
+            pushLog(`Entra\xEEnement ${trainingChoice.intensity.toLowerCase()} ax\xE9 ${ATTR_LABELS[trainingChoice.focus]} (+${gain}).`);
+          },
+          onLaunchSeason: launchSeason,
+          onRetire: retireVoluntarily,
+          orange,
+          gold,
+          wood,
+          red
+        }
+      ), screen === "season" && /* @__PURE__ */ React.createElement(
+        SeasonScreen,
+        {
+          player,
+          seasonStats,
+          seasonIdx,
+          queueLen: seasonQueue.length,
+          activeDecision,
+          resultText,
+          onChoice: resolveDecision,
+          onContinue: continueSeason,
+          orange,
+          gold,
+          wood
+        }
+      ), screen === "seasonEnd" && seasonSummary && /* @__PURE__ */ React.createElement(SeasonEndScreen, { summary: seasonSummary, player, onContinue: nextSeasonAfterSummary, orange, gold }), screen === "retired" && retireInfo && /* @__PURE__ */ React.createElement(RetiredScreen, { info: retireInfo, onRestart: restart, orange, gold }))
+    );
+  }
+  function MenuScreen({ onStart, orange, gold }) {
+    return /* @__PURE__ */ React.createElement("div", { className: "flex flex-col items-center text-center mt-10" }, /* @__PURE__ */ React.createElement("div", { className: "scoreboard text-xs tracking-widest mb-2", style: { color: gold } }, "SAISON 01 \xB7 \xC2GE 18"), /* @__PURE__ */ React.createElement("h1", { className: "disp text-5xl font-bold uppercase mb-3" }, "CROSS", /* @__PURE__ */ React.createElement("span", { style: { color: orange } }, "OVER")), /* @__PURE__ */ React.createElement("p", { className: "text-sm opacity-80 mb-8 max-w-xs" }, "De 18 \xE0 40 ans, \xE9cris ta l\xE9gende du basket : entra\xEEnements, blessures, contrats, argent, et des choix qui d\xE9cident du match."), /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        onClick: onStart,
+        className: "disp uppercase font-bold px-8 py-3 rounded-full text-lg shadow-lg",
+        style: { background: orange, color: "#12151C" }
+      },
+      "Nouvelle carri\xE8re"
+    ));
+  }
+  function CreationScreen({ creation, setCreation, adjustPoint, onConfirm, orange, wood }) {
+    return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", { className: "disp text-2xl font-bold uppercase mb-4" }, "Cr\xE9e ton joueur"), /* @__PURE__ */ React.createElement("label", { className: "text-xs uppercase opacity-70" }, "Nom"), /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        value: creation.name,
+        onChange: (e) => setCreation((c) => __spreadProps(__spreadValues({}, c), { name: e.target.value })),
+        placeholder: "Ton nom de joueur",
+        className: "w-full mb-4 px-3 py-2 rounded bg-black/30 border border-white/10 outline-none",
+        style: { color: "#F5F1E8" }
+      }
+    ), /* @__PURE__ */ React.createElement("label", { className: "text-xs uppercase opacity-70" }, "Poste"), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-2 gap-2 mb-4 mt-1" }, POSITIONS.map((pos) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: pos.key,
+        onClick: () => setCreation((c) => __spreadProps(__spreadValues({}, c), { position: pos.key })),
+        className: "text-sm px-2 py-2 rounded border",
+        style: {
+          borderColor: creation.position === pos.key ? orange : "rgba(255,255,255,0.15)",
+          background: creation.position === pos.key ? "rgba(232,114,12,0.15)" : "transparent"
+        }
+      },
+      pos.key
+    ))), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-center mb-2" }, /* @__PURE__ */ React.createElement("span", { className: "text-xs uppercase opacity-70" }, "Points \xE0 distribuer"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard text-sm", style: { color: orange } }, creation.remaining)), /* @__PURE__ */ React.createElement("div", { className: "space-y-2 mb-6" }, Object.keys(ATTR_LABELS).map((k) => /* @__PURE__ */ React.createElement("div", { key: k, className: "flex items-center justify-between bg-black/25 rounded px-3 py-2" }, /* @__PURE__ */ React.createElement("span", { className: "text-sm" }, ATTR_LABELS[k]), /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ React.createElement("button", { onClick: () => adjustPoint(k, -1), className: "w-7 h-7 rounded-full bg-black/40" }, "\u2212"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard w-6 text-center" }, creation.points[k]), /* @__PURE__ */ React.createElement("button", { onClick: () => adjustPoint(k, 1), className: "w-7 h-7 rounded-full", style: { background: orange, color: "#12151C" } }, "+"))))), /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        disabled: creation.remaining !== 0 || !creation.name.trim(),
+        onClick: onConfirm,
+        className: "disp uppercase font-bold w-full py-3 rounded-full text-lg disabled:opacity-30",
+        style: { background: orange, color: "#12151C" }
+      },
+      "Commencer ma carri\xE8re"
+    ));
+  }
+  function OffersScreen({ offers, onChoose, onSkip, orange, gold, wood }) {
+    return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", { className: "disp text-2xl font-bold uppercase mb-1" }, "Offres re\xE7ues"), /* @__PURE__ */ React.createElement("p", { className: "text-xs opacity-70 mb-4" }, "Choisis ton prochain club pour la saison."), /* @__PURE__ */ React.createElement("div", { className: "space-y-3 mb-4" }, offers.length === 0 && /* @__PURE__ */ React.createElement("p", { className: "text-sm opacity-70" }, "Aucune offre cette saison."), offers.map((o, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "rounded-xl p-4", style: { background: "rgba(165,107,53,0.15)", border: `1px solid ${wood}` } }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-center mb-1" }, /* @__PURE__ */ React.createElement("span", { className: "disp font-bold text-lg" }, o.team), /* @__PURE__ */ React.createElement("span", { className: "scoreboard text-xs", style: { color: gold } }, o.tierLabel)), /* @__PURE__ */ React.createElement("div", { className: "text-sm opacity-80 mb-1" }, "Salaire : ", eur(o.salary), " / saison"), /* @__PURE__ */ React.createElement("div", { className: "text-sm opacity-80 mb-3" }, "Ambition ", "\u2605".repeat(o.ambition), "\u2606".repeat(5 - o.ambition), " \xB7 Temps de jeu pr\xE9vu ", o.minutes, "%"), /* @__PURE__ */ React.createElement("button", { onClick: () => onChoose(o), className: "w-full py-2 rounded-full disp uppercase font-bold", style: { background: orange, color: "#12151C" } }, "Signer")))), /* @__PURE__ */ React.createElement("button", { onClick: onSkip, className: "w-full py-2 rounded-full text-sm opacity-70 border border-white/15" }, "Rester libre cette saison"));
+  }
+  function Bar({ value, color }) {
+    return /* @__PURE__ */ React.createElement("div", { className: "w-full h-2 rounded-full bg-black/30 overflow-hidden" }, /* @__PURE__ */ React.createElement("div", { className: "h-full rounded-full", style: { width: `${value}%`, background: color } }));
+  }
+  function HubScreen(props) {
+    const {
+      player,
+      log,
+      trainingChoice,
+      setTrainingChoice,
+      intensities,
+      lifestyleChoice,
+      setLifestyleChoice,
+      lifestyles,
+      investAmount,
+      setInvestAmount,
+      onInvest,
+      pendingInvestment,
+      onApplyTraining,
+      onLaunchSeason,
+      onRetire,
+      orange,
+      gold,
+      wood,
+      red
+    } = props;
+    const ov = overall(player.attrs);
+    return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "rounded-2xl p-4 mb-4", style: { background: `linear-gradient(135deg, ${wood}33, transparent)`, border: `1px solid ${wood}` } }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-start mb-2" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "disp text-xl font-bold" }, player.name), /* @__PURE__ */ React.createElement("div", { className: "text-xs opacity-70" }, player.position, " \xB7 ", player.age, " ans \xB7 Saison ", player.seasonsPlayed + 1)), /* @__PURE__ */ React.createElement("div", { className: "scoreboard text-2xl font-bold", style: { color: gold } }, ov)), /* @__PURE__ */ React.createElement("div", { className: "text-sm mb-2" }, player.team ? /* @__PURE__ */ React.createElement("span", null, player.team.team, " ", /* @__PURE__ */ React.createElement("span", { className: "opacity-60" }, "\xB7 ", player.team.tierLabel)) : /* @__PURE__ */ React.createElement("span", { className: "opacity-60" }, "Agent libre")), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-2 gap-x-4 gap-y-1 text-xs mb-3" }, Object.keys(ATTR_LABELS).map((k) => /* @__PURE__ */ React.createElement("div", { key: k, className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", { className: "opacity-70" }, ATTR_LABELS[k]), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, player.attrs[k])))), /* @__PURE__ */ React.createElement("div", { className: "space-y-1" }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between text-xs" }, /* @__PURE__ */ React.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ React.createElement(Battery, { size: 12 }), " \xC9nergie"), /* @__PURE__ */ React.createElement("span", null, player.energy)), /* @__PURE__ */ React.createElement(Bar, { value: player.energy, color: orange }), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between text-xs mt-1" }, /* @__PURE__ */ React.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ React.createElement(HeartPulse, { size: 12 }), " Moral"), /* @__PURE__ */ React.createElement("span", null, player.morale)), /* @__PURE__ */ React.createElement(Bar, { value: player.morale, color: "#6fa8dc" }), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between text-xs mt-1" }, /* @__PURE__ */ React.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ React.createElement(Star, { size: 12 }), " R\xE9putation"), /* @__PURE__ */ React.createElement("span", null, player.reputation)), /* @__PURE__ */ React.createElement(Bar, { value: player.reputation, color: gold })), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between items-center mt-3 text-sm" }, /* @__PURE__ */ React.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ React.createElement(Wallet, { size: 14 }), " ", eur(player.money)), pendingInvestment > 0 && /* @__PURE__ */ React.createElement("span", { className: "text-xs opacity-60" }, eur(pendingInvestment), " investis")), player.injuryStatus && /* @__PURE__ */ React.createElement("div", { className: "mt-2 text-xs px-2 py-1 rounded", style: { background: `${red}33`, color: red } }, "Statut : blessure ", player.injuryStatus)), /* @__PURE__ */ React.createElement("div", { className: "rounded-xl p-3 mb-3 bg-black/25" }, /* @__PURE__ */ React.createElement("div", { className: "disp font-bold uppercase text-sm mb-2 flex items-center gap-1" }, /* @__PURE__ */ React.createElement(Dumbbell, { size: 14 }), " Entra\xEEnement"), /* @__PURE__ */ React.createElement("div", { className: "flex gap-2 mb-2" }, Object.keys(intensities).map((i) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: i,
+        onClick: () => setTrainingChoice((t) => __spreadProps(__spreadValues({}, t), { intensity: i })),
+        className: "flex-1 text-xs py-1 rounded border",
+        style: { borderColor: trainingChoice.intensity === i ? orange : "rgba(255,255,255,0.15)", background: trainingChoice.intensity === i ? "rgba(232,114,12,0.15)" : "transparent" }
+      },
+      i
+    ))), /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-3 gap-1 mb-2" }, Object.keys(ATTR_LABELS).map((k) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: k,
+        onClick: () => setTrainingChoice((t) => __spreadProps(__spreadValues({}, t), { focus: k })),
+        className: "text-xs py-1 rounded border",
+        style: { borderColor: trainingChoice.focus === k ? gold : "rgba(255,255,255,0.15)", background: trainingChoice.focus === k ? "rgba(242,193,78,0.15)" : "transparent" }
+      },
+      ATTR_LABELS[k]
+    ))), /* @__PURE__ */ React.createElement("button", { onClick: onApplyTraining, className: "w-full py-2 rounded-full text-sm disp font-bold uppercase", style: { background: orange, color: "#12151C" } }, "S'entra\xEEner (co\xFBt ", intensities[trainingChoice.intensity].cost, " \xE9nergie)")), /* @__PURE__ */ React.createElement("div", { className: "rounded-xl p-3 mb-3 bg-black/25" }, /* @__PURE__ */ React.createElement("div", { className: "disp font-bold uppercase text-sm mb-2 flex items-center gap-1" }, /* @__PURE__ */ React.createElement(Home, { size: 14 }), " Train de vie & finances"), /* @__PURE__ */ React.createElement("div", { className: "flex gap-2 mb-2" }, Object.keys(lifestyles).map((k) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: k,
+        onClick: () => setLifestyleChoice(k),
+        className: "flex-1 text-xs py-1 rounded border",
+        style: { borderColor: lifestyleChoice === k ? orange : "rgba(255,255,255,0.15)", background: lifestyleChoice === k ? "rgba(232,114,12,0.15)" : "transparent" }
+      },
+      lifestyles[k].label
+    ))), /* @__PURE__ */ React.createElement("p", { className: "text-xs opacity-60 mb-2" }, lifestyles[lifestyleChoice].desc), pendingInvestment === 0 && /* @__PURE__ */ React.createElement("div", { className: "flex gap-2 items-center" }, /* @__PURE__ */ React.createElement(
+      "input",
+      {
+        type: "number",
+        min: "0",
+        max: player.money,
+        value: investAmount,
+        onChange: (e) => setInvestAmount(clamp(parseInt(e.target.value || "0"), 0, player.money)),
+        className: "w-full px-2 py-1 rounded bg-black/30 border border-white/10 text-sm"
+      }
+    ), /* @__PURE__ */ React.createElement("button", { onClick: onInvest, disabled: investAmount <= 0, className: "text-xs px-3 py-1 rounded-full disabled:opacity-30", style: { background: gold, color: "#12151C" } }, "Investir"))), /* @__PURE__ */ React.createElement("button", { onClick: onLaunchSeason, className: "w-full py-3 rounded-full disp uppercase font-bold text-lg mb-2 flex items-center justify-center gap-2", style: { background: orange, color: "#12151C" } }, "Lancer la saison ", /* @__PURE__ */ React.createElement(ChevronRight, { size: 18 })), /* @__PURE__ */ React.createElement("button", { onClick: onRetire, className: "w-full py-2 rounded-full text-xs opacity-60 border border-white/15 mb-4" }, "Prendre sa retraite"), log.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "rounded-xl p-3 bg-black/20 max-h-40 overflow-y-auto" }, /* @__PURE__ */ React.createElement("div", { className: "text-xs uppercase opacity-50 mb-1 flex items-center gap-1" }, /* @__PURE__ */ React.createElement(Users, { size: 12 }), " Journal"), log.slice(0, 6).map((l, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "text-xs opacity-70 mb-1" }, "\u2022 ", l))));
+  }
+  function SeasonScreen({ player, seasonStats, seasonIdx, queueLen, activeDecision, resultText, onChoice, onContinue, orange, gold, wood }) {
+    return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { className: "scoreboard text-center text-xs tracking-widest mb-3", style: { color: gold } }, "SAISON EN COURS \xB7 MATCH ", Math.min(seasonIdx + 1, queueLen), "/", queueLen, " \xB7 ", seasonStats.wins, "V-", seasonStats.losses, "D"), activeDecision && /* @__PURE__ */ React.createElement("div", { className: "rounded-2xl p-4 mb-4", style: { background: `${wood}22`, border: `1px solid ${wood}` } }, /* @__PURE__ */ React.createElement("div", { className: "disp font-bold text-lg mb-2" }, activeDecision.title), /* @__PURE__ */ React.createElement("p", { className: "text-sm opacity-85 mb-4" }, activeDecision.text), /* @__PURE__ */ React.createElement("div", { className: "space-y-2" }, activeDecision.choices.map((c, i) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: i,
+        onClick: () => onChoice(c),
+        className: "w-full text-left px-3 py-2 rounded-lg border text-sm",
+        style: { borderColor: "rgba(255,255,255,0.15)" }
+      },
+      c.label
+    )))), !activeDecision && resultText && /* @__PURE__ */ React.createElement("div", { className: "rounded-2xl p-4 mb-4 bg-black/25" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm mb-4" }, resultText), /* @__PURE__ */ React.createElement("button", { onClick: onContinue, className: "w-full py-2 rounded-full disp uppercase font-bold", style: { background: orange, color: "#12151C" } }, "Continuer")), !activeDecision && !resultText && /* @__PURE__ */ React.createElement("div", { className: "text-center text-sm opacity-60 mt-10" }, "Chargement du match\u2026"));
+  }
+  function SeasonEndScreen({ summary, player, onContinue, orange, gold }) {
+    return /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("h2", { className: "disp text-2xl font-bold uppercase mb-3" }, "Bilan de saison"), /* @__PURE__ */ React.createElement("div", { className: "rounded-xl p-4 bg-black/25 mb-4 space-y-1 text-sm" }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "Bilan"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, summary.wins, "V - ", summary.losses, "D")), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "Performance moyenne"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, summary.avgPerf, "/10")), summary.team && /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "Salaire per\xE7u"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, eur(summary.salary))), summary.agentCut > 0 && /* @__PURE__ */ React.createElement("div", { className: "flex justify-between opacity-70" }, /* @__PURE__ */ React.createElement("span", null, "Commission agent"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, "-", eur(summary.agentCut))), summary.lifestyleCost > 0 && /* @__PURE__ */ React.createElement("div", { className: "flex justify-between opacity-70" }, /* @__PURE__ */ React.createElement("span", null, "Train de vie"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, "-", eur(summary.lifestyleCost))), summary.investReturn !== 0 && /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "R\xE9sultat investissement"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard", style: { color: summary.investReturn >= 0 ? gold : "#D64545" } }, summary.investReturn >= 0 ? "+" : "", eur(summary.investReturn))), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between border-t border-white/10 pt-2 mt-2 font-bold" }, /* @__PURE__ */ React.createElement("span", null, "Solde actuel"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, eur(player.money)))), summary.awardsGained.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "rounded-xl p-3 mb-4", style: { background: "rgba(242,193,78,0.15)" } }, /* @__PURE__ */ React.createElement("div", { className: "text-xs uppercase opacity-70 mb-1 flex items-center gap-1" }, /* @__PURE__ */ React.createElement(Trophy, { size: 12 }), " Distinctions"), summary.awardsGained.map((a, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "text-sm" }, a))), /* @__PURE__ */ React.createElement("button", { onClick: onContinue, className: "w-full py-3 rounded-full disp uppercase font-bold text-lg", style: { background: orange, color: "#12151C" } }, "Saison suivante"));
+  }
+  function RetiredScreen({ info, onRestart, orange, gold }) {
+    const p = info.player;
+    const ov = overall(p.attrs);
+    return /* @__PURE__ */ React.createElement("div", { className: "text-center" }, /* @__PURE__ */ React.createElement("div", { className: "scoreboard text-xs tracking-widest mb-2", style: { color: gold } }, "FIN DE CARRI\xC8RE"), /* @__PURE__ */ React.createElement("h2", { className: "disp text-3xl font-bold uppercase mb-3" }, p.name), /* @__PURE__ */ React.createElement("p", { className: "text-sm opacity-80 mb-6" }, info.reason), /* @__PURE__ */ React.createElement("div", { className: "rounded-xl p-4 bg-black/25 mb-4 text-left space-y-1 text-sm" }, /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "Poste"), /* @__PURE__ */ React.createElement("span", null, p.position)), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "\xC2ge \xE0 la retraite"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, p.age, " ans")), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "Saisons jou\xE9es"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, p.seasonsPlayed)), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "Niveau final"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, ov)), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "R\xE9putation finale"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, p.reputation)), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "Fortune amass\xE9e"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, eur(p.money))), /* @__PURE__ */ React.createElement("div", { className: "flex justify-between" }, /* @__PURE__ */ React.createElement("span", null, "Distinctions"), /* @__PURE__ */ React.createElement("span", { className: "scoreboard" }, p.awards.length))), p.awards.length > 0 && /* @__PURE__ */ React.createElement("div", { className: "rounded-xl p-3 mb-6", style: { background: "rgba(242,193,78,0.15)" } }, p.awards.map((a, i) => /* @__PURE__ */ React.createElement("div", { key: i, className: "text-sm" }, a))), /* @__PURE__ */ React.createElement("button", { onClick: onRestart, className: "w-full py-3 rounded-full disp uppercase font-bold text-lg flex items-center justify-center gap-2", style: { background: orange, color: "#12151C" } }, /* @__PURE__ */ React.createElement(RotateCcw, { size: 18 }), " Nouvelle carri\xE8re"));
+  }
+  const rootEl = document.getElementById("root");
+  const root = ReactDOM.createRoot(rootEl);
+  root.render(/* @__PURE__ */ React.createElement(App, null));
+})();
+
+</script>
+</body>
+</html>
